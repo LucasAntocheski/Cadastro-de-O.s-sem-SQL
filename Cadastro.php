@@ -28,10 +28,10 @@
     Descrição do defeito: <br> <textarea name="desc"  cols="30" rows="10"></textarea><br><br>
     Itens que acompanha o aparelho: <span class="error"> * Obrigatório</span><br><br>
     Bateria:  <input type="radio" name="bateria"value="Acompanha Bateria">Sim
-                 <input type="radio" name="bateria" value="Não acompanha Bateria">Não </span><br>
-    Fonte:  <input type="radio" name="fonte" value="Acompanha fonte"> Sim
-            <input type="radio" name="fonte"value="Não acompanha fonte"> Não<br>
-    Cabo de força: <input type="radio" name="cabodeforca" value="Acompanha cabo de força"> Sim
+              <input type="radio" name="bateria" value="Não acompanha Bateria">Não <br>
+    Fonte:  <input type="radio" name="fonte" value="Acompanha fonte">Sim
+            <input type="radio" name="fonte"value="Sem fonte">Não<br>
+    Cabo de força: <input type="radio" name="cabodeforca" value="Acompanha cabo de força">Sim
                     <input type="radio" name="cabodeforca" value="Não acompanha cabo de força">Não<br><br>
     <b>Termos:</b> <p><a>
         ATENÇÃO PREZADO CLIENTE,  ABAIXO ALGUMAS INFORMAÇÕES IMPORTANTES A SEREM LIDAS:
@@ -53,69 +53,75 @@
 
     <?php
 
-    if(isset($_POST['gravado'])){
-        //~ Tratativas de erro da LINHA 59 à LINHA 87 ~ //
+    if(isset($_POST['gravado'])) {
+        //~ Tratativas de erro da LINHA 59 à LINHA 95 ~ //
 
-        if(empty($_POST['nome']) || strlen($_POST['nome']) < 3 || strlen($_POST['nome']) > 100){
+        if (empty($_POST['nome']) || strlen($_POST['nome']) < 3 || strlen($_POST['nome']) > 100) {
             echo '<p class="error"> Nome incorreto ou não preechido</p>';
             die();
         }
-        if(isset($_POST['bateria']) != "Acompanha Bateria" && "Não acompanha Bateria"){
-            echo '<p class="error"> Erro interno, tente novamente.</p>';
-            die();
-        }
-        if (!empty($_POST['email']) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+
+        if (!empty($_POST['email']) && !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
             echo '<p class="error"> Preenchimento incorreto de e-mail, tente novamente</p>';
             die();
         }
-        if (!empty($_POST['site']) && !filter_var($_POST['site'], FILTER_VALIDATE_URL)){
+        if (!empty($_POST['site']) && !filter_var($_POST['site'], FILTER_VALIDATE_URL)) {
             echo '<p class="error"> Site preenchido incorretamente, tente novamente</p>';
             die();
         }
 
-        if(isset($_POST['fonte']) != "Acompanha fonte" && "Não acompanha fonte"){
-            echo '<p class="error"> Erro interno, tente novamente.</p>';
-            die();
-        }
-        if(isset($_POST['cabodeforca']) != "Acompanha cabo de força" && "Não acompanha cabo de força"){
-            echo '<p class="error"> Erro interno, tente novamente.</p>';
-            die();
-        }
-        if(empty($_POST['cpf']) || strlen($_POST['cpf']) < 11 || strlen($_POST['cpf']) > 11 ){
+        if (empty($_POST['cpf']) || strlen($_POST['cpf']) < 11 || strlen($_POST['cpf']) > 11) {
             echo '<p class="error"> CPF não preechido, ou incorreto tente novamente.</p>';
             die();
         }
+        $bateria = $_POST['bateria'];
+        if ($bateria != "Acompanha Bateria" && $bateria != "Não acompanha Bateria"){
+            echo '<b><p class="error"> Erro Interno tente novamente.</b>';
+            die();
 
+        }
 
+        $fonte = $_POST['fonte'];
+        if ($fonte != "Acompanha fonte" && $fonte != "Sem fonte"){
+            echo '<b><p class="error"> Erro Interno tente novamente.</b>';
+            die();
+
+        }
+        $cabodeforca = $_POST['cabodeforca'];
+        if ($cabodeforca != "Acompanha cabo de força" && $fonte != "Não acompanha cabo de força"){
+            echo '<b><p class="error"> Erro Interno tente novamente.</b>';
+            die();
+
+        }
         //NÃO ACEITE DO TERMO//
-        if(!isset($_POST['aceita'])){
-            echo "<span class='error'><b>Cliente ". $_POST['nome']." não aceitou o termo! O aceite do termo é OBRIGATÓRIO</b></span>";
+        if (!isset($_POST['aceita'])) {
+            echo "<span class='error'><b>Cliente " . $_POST['nome'] . " não aceitou o termo! O aceite do termo é OBRIGATÓRIO</b></span>";
             die();
         }
         //NÃO ACEITE DO TERMO//
 
-        if (isset($_POST['aceita'])){
-            echo "[Cliente"." ". "<b>".$_POST['nome']."</b>"." ". "aceitou os termos]";
+        if (isset($_POST['aceita'])) {
+            echo "[Cliente" . " " . "<b>" . $_POST['nome'] . "</b>" . " " . "aceitou os termos]";
         }
+
         echo "<br><br>";
         echo "===================================";
         echo "<h1>EMPRESA</h1>";
-        echo "==================================="." <br>";
-        echo "<b>Ordem de serviço Nº:</b> ". $_POST['os']."<br><br>" ;
-        echo "<b>Nome do cliente: </b>". $_POST['nome']. "<br><br>";
-        echo "<b>E-mail é: </b>". $_POST['email']. "<br><br>";
-        echo "<b>Website é: </b>". $_POST['site']. "<br><br>";
-        echo "<b>CPF: </b>". $_POST['cpf']. "<br><br>" ;
-        echo "<b>Data de nascimento: </b>". $_POST['date']."<br><br>" ;
-        echo "<b>Descrição do defeito:</b> ". $_POST['desc']."<br><br>" ;
+        echo "===================================" . " <br>";
+        echo "<b>Ordem de serviço Nº:</b> " . $_POST['os'] . "<br><br>";
+        echo "<b>Nome do cliente: </b>" . $_POST['nome'] . "<br><br>";
+        echo "<b>E-mail é: </b>" . $_POST['email'] . "<br><br>";
+        echo "<b>Website é: </b>" . $_POST['site'] . "<br><br>";
+        echo "<b>CPF: </b>" . $_POST['cpf'] . "<br><br>";
+        echo "<b>Data de nascimento: </b>" . $_POST['date'] . "<br><br>";
+        echo "<b>Descrição do defeito:</b> " . $_POST['desc'] . "<br><br>";
         echo "<b>Itens que acompanha o aparelho:</b> <br><br>";
-        echo "[*]". $_POST['bateria'] . "<br>";
-        echo "[*]".$_POST['cabodeforca'] . "<br>";
-        echo "[*]".$_POST['fonte']."<br><br>";
+        echo "[*]" . $bateria . "<br>";
+        echo "[*]" . $cabodeforca . "<br>";
+        echo "[*]" . $fonte . "<br><br>";
     }
 
     ?>
 </form>
-
 </body>
 </html>
