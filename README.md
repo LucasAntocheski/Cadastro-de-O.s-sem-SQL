@@ -1,6 +1,6 @@
-# Cadastro-de-O.s-sem-SQL
+# Cadastro-de-O.s-com-SQL
 
-Cadastro de Ordem de serviço simples com tratativas de erros. Este formulário está sem vínculo de SQL.
+Cadastro de Ordem de serviço simples com tratativas de erros. 
 
 Função: Treino de formulários profissionais. 
 
